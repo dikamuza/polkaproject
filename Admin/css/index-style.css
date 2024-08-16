@@ -1,0 +1,122 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #F6F6EC, #F6F6EC);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.logo {
+    width: 150px;
+}
+
+.logo-left {
+    width: 200px;
+}
+
+.logo-right {
+    width: 36px;
+    margin-right: 20px;
+}
+
+.login-container, .register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.login-card, .register-card {
+    background-color: #fff;
+    padding: 40px 60px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+}
+
+.login-card h2, .register-card h2 {
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #333;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;  /* Adjust the size as needed */
+    height: 24px; /* Adjust the size as needed */
+    padding-left: 5px; /* Add padding to the left */
+}
+
+.input-group input {
+    width: 100%;
+    max-width: 320px;  /* Set maximum width */
+    padding: 10px 10px 10px 50px; /* Adjust padding to align text */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login-card button, .register-card button {
+    width: 100%;
+    max-width: 320px;  /* Set maximum width */
+    padding: 10px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-card button:hover, .register-card button:hover {
+    background-color: #333;
+}
+
+.login-card a, .register-card a {
+    display: inline;
+    margin: 0 0;
+    color: #888;
+    text-decoration: none;
+}
+
+.login-card p, .register-card p {
+    color: #888;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-card p .register-link, .register-card p .register-link {
+    color: #0091ff; /* Blue cyan color */
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.login-card p .register-link:hover, .register-card p .register-link:hover {
+    text-decoration: underline;
+}

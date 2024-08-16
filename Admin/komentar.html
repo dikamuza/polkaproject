@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Komentar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Admin/manage-style.css">
+    <link rel="icon" type="image/x-icon" href="../Website/Home/Picture/polka pavicon.ico">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Polka Gallery Admin</h2>
+            <ul>
+                <li><a href="../Admin/dashboard.html">Dashboard</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>Komentar</h1>
+                <div class="user-info">
+                    <span id="user-name">
+                        <div class="dropdown">
+                            <button class="dropbtn" id="user-button">Nama Kamu</button>
+                            <div class="dropdown-content">
+                                <a href="../Admin/index.html" onclick="logoutUser()">Log Out</a>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <div class="content">
+                <h2>Daftar Komentar</h2>
+                <div id="commentList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to display the username on the button
+        function displayUserName() {
+            const loggedInUser = localStorage.getItem('loggedInUser') || 'Nama Kamu';
+            document.getElementById('user-button').textContent = loggedInUser;
+        }
+
+        // Function to handle user logout
+        function logoutUser() {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = '../Admin/index.html'; // Redirect to login page
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Display the username
+            displayUserName();
+            
+            // Load comments
+            const commentList = document.getElementById('commentList');
+            const comments = JSON.parse(localStorage.getItem('comments')) || [];
+
+            if (comments.length === 0) {
+                commentList.innerHTML = '<p>Tidak ada komentar.</p>';
+            } else {
+                let html = '<table><tr><th>Nama</th><th>Email</th><th>Komentar</th><th>Tanggal</th></tr>';
+                comments.forEach((comment) => {
+                    html += `<tr>
+                                <td>${comment.name}</td>
+                                <td>${comment.email}</td>
+                                <td>${comment.comment}</td>
+                                <td>${new Date(comment.timestamp).toLocaleString()}</td> <!-- Format the timestamp here -->
+                            </tr>`;
+                });
+                html += '</table>';
+                commentList.innerHTML = html;
+            }
+        });
+    </script>
+</body>
+</html>

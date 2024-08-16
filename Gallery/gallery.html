@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <link rel="stylesheet" href="../Gallery/gallery-style.css">
+    <link rel="icon" type="image/x-icon" href="../Website/Home/Picture/polka pavicon.ico">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="../../Website/Home/Picture/LOGO POLKA.png" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <!-- Search container placed here -->
+                <li>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="Cari project">
+                        <button type="button" onclick="searchProjects()">Cari</button>
+                    </div>
+                </li>
+                <li><a href="../Website/Home/index.html">Home</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../../Website/project/ProjectMahasiswa.html">Project Mahasiswa</a></li>
+                        <li><a href="../Website/project/projectpbl.html">Project PBL</a></li>
+                    </ul>
+                </li>
+                <li><a href="../Website/about/about.html">About</a></li>
+                <li><a href="../Website/contact/contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="showcase">
+        <h1>Welcome To Gallery!</h1>
+        <p>Berikut ini adalah kumpulan proyek Mahasiswa POLNEP.</p>
+    </section>
+    <section class="project-description">
+        <p>Beragam karya menarik dari Mahasiswa POLNEP kami tampilkan disini!</p>
+    </section>
+    <section class="slideshow-container">
+        <div class="slide fade">
+            <a href="/Website/project/Pbl/galeri.html">
+                <img src="../Gallery/images/Aplikasi Gallery App.png" alt="Project 1"></a>
+        </div>
+        <div class="slide fade">
+            <a href="/Website/project/Mahasiswa/era.html">
+                <img src="../Website/project/Mahasiswa/picture/Website Era Mockup.png" alt="Project 2"></a>
+        </div>
+        <div class="slide fade">
+            <a href="/Website/project/Pbl/Movie.html">
+                <img src="../Gallery/images/Movie App.png" alt="Project 3"></a>
+        </div>
+        <div class="slide fade">
+            <a href="/Website/project/Mahasiswa/Kiki.html">
+                <img src="/Website/project/Mahasiswa/picture/Website Portofolio Kiki.png" alt="Project 4"></a>
+        </div>
+        <div class="slide fade">
+            <a href="/Website/project/Pbl/country.html">
+            <img src="/Website/project/Pbl/picture/Country List App.png" alt="Project 4"></a>
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </section>
+    <footer>
+        <p>&copy;2024 <a href="../../Website/Home/index.html" class="link">Polka Project</a>. All rights reserved.</p>
+    </footer>
+    <script src="../Gallery/slideshow.js"></script>
+    <script>
+        // Function to handle search
+        function searchProjects() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            
+            // List of HTML files to search
+            const files = [
+                '../Website/project/Mahasiswa/era.html',
+                '../Website/project/Mahasiswa/Kiki.html',
+                '../Website/project/Mahasiswa/Donat.html',
+                '../Website/project/Mahasiswa/Kueateh.html',
+                '../Website/project/Mahasiswa/Mahasiswa1.html',
+                '../Website/project/Mahasiswa/paragraph.html',
+                '../Website/project/Mahasiswa/pong.html',
+                '../Website/project/Pbl/bukuresep.html',
+                '../Website/project/Pbl/country.html',
+                '../Website/project/Pbl/galeri.html',
+                '../Website/project/Pbl/linker.html',
+                '../Website/project/Pbl/Movie.html',
+                '../Website/project/Pbl/pbl1.html',
+                '../Website/project/Pbl/sibaper2.html',
+                '../Website/project/Pbl/website.html'
+            ];
+
+            // Find and open matching files
+            const matchingFiles = files.filter(file => file.toLowerCase().includes(query));
+            
+            if (matchingFiles.length > 0) {
+                matchingFiles.forEach(file => window.open(file, '_blank'));
+            } else {
+                alert('No projects found.');
+            }
+        }
+    </script>
+</body>
+
+</html>

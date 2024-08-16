@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polka Gallery Admin</title>
+    <link rel="icon" type="i" href="../Website/Home/Picture/polka pavicon.ico">
+    <script src="../Admin/js/user.js"></script>
+    <link rel="stylesheet" href="../Admin/manage-style.css">
+    <style>
+        /* Styles for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body onload="displayUserName(); loadProjects();">
+    <div class="container">
+        <div class="sidebar">
+            <h2>Polka Gallery Admin</h2>
+            <ul>
+                <li><a href="../Admin/dashboard.html">Dashboard</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>Manage Project</h1>
+                <div class="user-info">
+                    <span id="user-name">
+                        <div class="dropdown">
+                            <button class="dropbtn" id="user-button">Nama Kamu</button>
+                            <div class="dropdown-content">
+                                <a href="../Admin/index.html" onclick="logoutUser()">Log Out</a>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <div class="content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>Judul</th>
+                            <th>Deskripsi</th>
+                            <th>Pengembang</th>
+                            <th>Tools</th>
+                            <th>Tanggal Mulai</th>
+                            <th>Tanggal Selesai</th>
+                            <th>Kategori</th>
+                            <th>Link Project</th>
+                            <th>Kontak</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projectTableBody">
+                        <!-- Data akan dimasukkan di sini -->
+                    </tbody>
+                </table>
+                <div id="statistics" style="display:none;">
+                    <div id="total-project-count"></div>
+                    <div id="total-pbl-count"></div>
+                </div>
+            </div>
+            <button type="button" onclick="postProject()">Post</button>
+        </div>
+    </div>
+
+    <!-- Modal for Edit -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h2>Edit Project</h2>
+            <form id="editProjectForm">
+                <input type="hidden" id="editIndex">
+                <label for="editJudul">Judul</label>
+                <input type="text" id="editJudul" name="judul">
+
+                <label for="editDeskripsi">Deskripsi</label>
+                <textarea id="editDeskripsi" name="deskripsi" rows="4"></textarea>
+
+                <label for="editPengembang">Pengembang Project</label>
+                <input type="text" id="editPengembang" name="pengembang">
+
+                <label for="editTools">Tools</label>
+                <select id="editTools" name="tools">
+                    <option value="">-- Pilih Tools --</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="php">Php</option>
+                    <option value="laravel">Laravel</option>
+                </select>
+
+                <label for="editStartDate">Tanggal Mulai</label>
+                <input type="date" id="editStartDate" name="start_date">
+
+                <label for="editEndDate">Tanggal Selesai</label>
+                <input type="date" id="editEndDate" name="end_date">
+
+                <label for="editKategori">Kategori</label>
+                <select id="editKategori" name="kategori">
+                    <option value="">-- Pilih Kategori --</option>
+                    <option value="Project Mahasiswa">Project Mahasiswa</option>
+                    <option value="Project PBL">Project PBL</option>
+                    <option value="Project Lomba">Project Lomba</option>
+                </select>
+
+                <label for="editLinkProject">Link Project</label>
+                <input type="url" id="editLinkProject" name="link_project">
+
+                <label for="editKontak">Kontak Mahasiswa</label>
+                <input type="text" id="editKontak" name="kontak">
+
+                <button type="button" onclick="saveEdit()">Save</button>
+                <button type="button" onclick="closeEditModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function postProject() {
+            window.location.href = 'add-post-project.html';
+        }
+
+        function loadProjects() {
+            let projects = JSON.parse(localStorage.getItem('projects')) || [];
+            let tableBody = document.getElementById('projectTableBody');
+            tableBody.innerHTML = '';
+            let totalProjects = 0;
+            let totalPBL = 0;
+
+            projects.forEach((project, index) => {
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${project.judul}</td>
+                    <td>${project.deskripsi}</td>
+                    <td>${project.pengembang}</td>
+                    <td>${project.tools}</td>
+                    <td>${project.start_date}</td>
+                    <td>${project.end_date}</td>
+                    <td>${project.kategori}</td>
+                    <td><a href="${project.link_project}" target="_blank">${project.link_project}</a></td>
+                    <td>${project.kontak}</td>
+                    <td>
+                        <button onclick="editProject(${index})">Edit</button>
+                        <button onclick="deleteProject(${index})">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+
+                if (project.kategori === 'Project Mahasiswa') totalProjects++;
+                if (project.kategori === 'Project PBL') totalPBL++;
+            });
+
+            document.getElementById('total-project-count').textContent = `Total Project: ${totalProjects}`;
+            document.getElementById('total-pbl-count').textContent = `Total PBL: ${totalPBL}`;
+            document.getElementById('statistics').style.display = 'block';
+        }
+
+        function editProject(index) {
+            let projects = JSON.parse(localStorage.getItem('projects')) || [];
+            let project = projects[index];
+            document.getElementById('editIndex').value = index;
+            document.getElementById('editJudul').value = project.judul;
+            document.getElementById('editDeskripsi').value = project.deskripsi;
+            document.getElementById('editPengembang').value = project.pengembang;
+            document.getElementById('editTools').value = project.tools;
+            document.getElementById('editStartDate').value = project.start_date;
+            document.getElementById('editEndDate').value = project.end_date;
+            document.getElementById('editKategori').value = project.kategori;
+            document.getElementById('editLinkProject').value = project.link_project;
+            document.getElementById('editKontak').value = project.kontak;
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        function saveEdit() {
+            let index = document.getElementById('editIndex').value;
+            let projects = JSON.parse(localStorage.getItem('projects')) || [];
+            projects[index] = {
+                judul: document.getElementById('editJudul').value,
+                deskripsi: document.getElementById('editDeskripsi').value,
+                pengembang: document.getElementById('editPengembang').value,
+                tools: document.getElementById('editTools').value,
+                start_date: document.getElementById('editStartDate').value,
+                end_date: document.getElementById('editEndDate').value,
+                kategori: document.getElementById('editKategori').value,
+                link_project: document.getElementById('editLinkProject').value,
+                kontak: document.getElementById('editKontak').value
+            };
+            localStorage.setItem('projects', JSON.stringify(projects));
+            loadProjects();
+            closeEditModal();
+        }
+
+        function deleteProject(index) {
+            let projects = JSON.parse(localStorage.getItem('projects')) || [];
+            projects.splice(index, 1);
+            localStorage.setItem('projects', JSON.stringify(projects));
+            loadProjects();
+        }
+    </script>
+</body>
+
+</html>

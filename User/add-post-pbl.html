@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="i" href="../Website/Home/Picture/polka pavicon.ico">
+    <link rel="stylesheet" href="../User/add-style.css">
+    <script src="../Admin/js/user.js"></script>
+    <title>Add PBL</title>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Polka Gallery User</h2>
+            <ul>
+                <li><a href="add-post-project.html">Add Project</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>Add PBL</h1>
+            </div>
+            <div class="content">
+                <br>
+                <form id="pblForm">
+                    <label for="judul">Judul</label>
+                    <input type="text" id="judul" name="judul">
+
+                    <label for="deskripsi">Deskripsi</label>
+                    <textarea id="deskripsi" name="deskripsi" rows="4"></textarea>
+
+                    <label for="pengembang">Pengembang Project</label>
+                    <input type="text" id="pengembang" name="pengembang">
+
+                    <label for="tools">Tools</label>
+                    <select id="tools" name="tools">
+                        <option value="">-- Pilih Tools --</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="php">Php</option>
+                        <option value="laravel">Laravel</option>
+                    </select>
+
+                    <label for="start_date">Tanggal Mulai</label>
+                    <input type="date" id="start_date" name="start_date">
+
+                    <label for="end_date">Tanggal Selesai</label>
+                    <input type="date" id="end_date" name="end_date">
+
+                    <label for="kategori">Kategori</label>
+                    <select id="kategori" name="kategori">
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="Project Mahasiswa">Project Mahasiswa</option>
+                        <option value="Project PBL">Project PBL</option>
+                    </select>
+
+                    <label for="link_project">Link Project</label>
+                    <input type="url" id="link_project" name="link_project">
+
+                    <label for="kontak">Kontak Mahasiswa</label>
+                    <input type="text" id="kontak" name="kontak">
+
+                    <div class="button-container">
+                        <div class="left">
+                            <button type="button" class="reset" onclick="resetForm()">Clear Form</button>
+                        </div>
+                        <div class="right">
+                            <button type="submit" class="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle form submission
+        document.getElementById('pblForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get form data
+            const formData = new FormData(this);
+            const newProject = {
+                judul: formData.get('judul'),
+                deskripsi: formData.get('deskripsi'),
+                pengembang: formData.get('pengembang'),
+                tools: formData.get('tools'),
+                start_date: formData.get('start_date'),
+                end_date: formData.get('end_date'),
+                kategori: formData.get('kategori'),
+                link_project: formData.get('link_project'),
+                kontak: formData.get('kontak')
+            };
+
+            // Save to localStorage
+            let projects = JSON.parse(localStorage.getItem('projects')) || [];
+            projects.push(newProject);
+            localStorage.setItem('projects', JSON.stringify(projects));
+
+            // Redirect to manage-post-project.html
+            window.location.href = 'success.html';
+        });
+
+        function resetForm() {
+            document.getElementById('pblForm').reset();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin</title>
+    <link rel="stylesheet" href="../Admin/css/index-style.css">
+    <script src="../Admin/js/user.js"></script>
+    <link rel="icon" type="i" href="../Website/Home/Picture/polka pavicon.ico">
+</head>
+<body>
+    <header class="navbar">
+        <img src="../Admin/images/logopolka.png" alt="Polka Gallery Admin" class="logo logo-left">
+        <img src="../Admin/images/logopolnep.png" alt="Polnep" class="logo logo-right">
+    </header>
+    <div class="login-container">
+        <div class="login-card">
+            <h2>Admin Login</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <img src="../Admin/images/user.png" alt="User Icon" class="icon">
+                    <input type="text" id="logUsername" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <img src="../Admin/images/pasw.png" alt="Password Icon" class="icon">
+                    <input type="password" id="logPassword" placeholder="Password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <p>Buat akun baru klik<a href="../Admin/register.html" class="register-link">di sini</a></p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            loginUser();
+        });
+    </script>
+</body>
+</html>

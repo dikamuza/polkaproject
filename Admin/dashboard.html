@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../Website/Home/Picture/polka pavicon.ico">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Dashboard</title>
+    <!-- Add Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Polka Gallery Admin</h2>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>Dashboard</h1>
+                <div class="user-info">
+                    <span id="user-name">
+                        <div class="dropdown">
+                            <button class="dropbtn" id="user-button">Nama Kamu</button>
+                            <div class="dropdown-content">
+                                <a href="../Admin/index.html" onclick="logoutUser()">Log Out</a>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="statistics">
+                    <div>
+                        <h3>Total Project</h3>
+                        <p id="total-project">0</p>
+                    </div>
+                    <div>
+                        <h3>Total PBL</h3>
+                        <p id="total-pbl">0</p>
+                    </div>
+                    <div>
+                        <h3>Total Komentar</h3>
+                        <p id="total-comments">0</p>
+                    </div>
+                </div>
+                <div class="footer-buttons">
+                    <div onclick="location.href='manage-post-project.html'">
+                        <img class="icon" src="../Admin/images/project.png" alt="Icon Project"><br> Project
+                    </div>
+                    <div onclick="location.href='manage-post-project.html'">
+                        <img class="icon" src="../Admin/images/pbl.png" alt="Icon PBL"><br> PBL
+                    </div>
+                    <div onclick="location.href='komentar.html'">
+                        <img class="icon" src="../Admin/images/lomba.png" alt="Komentar Icon"><br> Komentar
+                    </div>
+                    <div onclick="location.href='userlist.html'">
+                        <img class="icon" src="../Admin/images/user-icon.png" alt="Daftar Akun"><br> Daftar Akun
+                    </div>
+                </div>
+                <!-- Add the chart here -->
+                <div class="chart-container">
+                    <canvas id="visitorChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Function to display the username on the button
+        function displayUserName() {
+            const loggedInUser = localStorage.getItem('loggedInUser') || 'Nama Kamu';
+            document.getElementById('user-button').textContent = loggedInUser;
+        }
+
+        // Function to handle user logout
+        function logoutUser() {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = 'index.html'; // Redirect to login page
+        }
+
+        // Function to update the statistics in localStorage
+        function updateStatistics() {
+            let projects = JSON.parse(localStorage.getItem('projects')) || [];
+            let comments = JSON.parse(localStorage.getItem('comments')) || [];
+            let totalProjects = 0;
+            let totalPBL = 0;
+            let totalComments = comments.length;
+
+            projects.forEach(project => {
+                if (project.kategori === 'Project Mahasiswa') {
+                    totalProjects++;
+                }
+                if (project.kategori === 'Project PBL') {
+                    totalPBL++;
+                }
+            });
+
+            // Update the statistics on the dashboard
+            document.getElementById('total-project').textContent = totalProjects;
+            document.getElementById('total-pbl').textContent = totalPBL;
+            document.getElementById('total-comments').textContent = totalComments;
+        }
+
+        // Function to fetch visitor data and create chart
+        function fetchVisitorData() {
+            const comments = JSON.parse(localStorage.getItem('comments')) || [];
+            const emailCounts = {};
+
+            comments.forEach(comment => {
+                const email = comment.email;
+                if (email) {
+                    emailCounts[email] = (emailCounts[email] || 0) + 1;
+                }
+            });
+
+            const chartLabels = Object.keys(emailCounts);
+            const chartData = Object.values(emailCounts);
+
+            // Create chart
+            const ctx = document.getElementById('visitorChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: 'Jumlah Pengunjung',
+                        data: chartData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Call the functions when the page loads
+        displayUserName();
+        updateStatistics();
+        fetchVisitorData();
+    </script>
+</body>
+
+</html>

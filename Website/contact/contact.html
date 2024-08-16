@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact page for Polka Gallery.">
+    <title>Polka Gallery Contact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../Home/Picture/polka pavicon.ico">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #333;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            margin-left: 20px;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            margin-right: 20px;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #E3E0A6;
+        }
+
+        /* Style untuk dropdown menu */
+        nav ul li .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            min-width: 250px;
+        }
+
+        nav ul li .dropdown-content li {
+            display: block;
+        }
+
+        nav ul li .dropdown-content li a {
+            padding: 12px 16px;
+            display: block;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        nav ul li .dropdown-content li a:hover {
+            background-color: #575757;
+            color: #E3E0A6;
+        }
+
+        nav ul li:hover .dropdown-content {
+            display: block;
+        }
+
+        .container {
+            padding: 20px;
+            background-color: #fff;
+            max-width: 800px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 97%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group textarea {
+            resize: none;
+
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .footer img {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            background-color: #F8F7EC;
+            padding: 20px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer div {
+            flex: 1;
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="/Website/Home/Picture/LOGO POLKA.png" alt="Logo Polka">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/Website/Home/index.html" title="Home">Home</a></li>
+                <li class="dropdown">
+                    <a href="../../Gallery/gallery.html" title="Gallery">Gallery</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../project/ProjectMahasiswa.html" title="Project Mahasiswa">Project Mahasiswa</a></li>
+                        <li><a href="../project/projectpbl.html" title="Project PBL">Project PBL</a></li>
+                    </ul>
+                </li>
+                <li><a href="../about/about.html" title="About">About</a></li>
+                <li><a href="../contact/contact.html" title="Contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Pendapat Anda sangat berarti bagi kami. Bagikan komentar atau saran Anda untuk membantu kami menjadi lebih baik.</h2>
+        <form id="commentForm">
+            <div class="form-group">
+                <label for="name">Nama</label>
+                <input type="text" id="name" name="name" placeholder="Nama" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <label for="comment">Komentar</label>
+                <textarea id="comment" name="comment" rows="4" placeholder="Komentar" required></textarea>
+            </div>
+            <button type="submit">Kirim Komentar</button>
+        </form>        
+    </div>
+    <div class="footer">
+        <div class="footer">
+            <div class="address">
+                <h3>Address</h3>
+                <p>Jl. Jenderal Ahmad Yani, Benua Laut, Pontianak Tenggara, Kota Pontianak, Kalimantan Barat 78244</p>
+            </div>
+            <div class="contact">
+                <h3>Contact</h3>
+                <p><a href="tel:+62561736180"><img src="/Website/contact/gambarcontact/telephone.png" />+62 561 736180</a></p>
+                <p><a href="mailto:kampuspolnep@mail.com"><img src="/Website/contact/gambarcontact/email.png" /> kampuspolnep@mail.com</a></p>
+                <p><a href="https://www.instagram.com/mediapolnep" target="_blank"><img src="/Website/contact/gambarcontact/instagram.png" />mediapolnep</a></p>
+                <p><a href="https://www.facebook.com/PoliteknikNegeriPontianak" target="_blank"><img src="/Website/contact/gambarcontact/facebook.png" /> Politeknik Negeri Pontianak</a></p>
+            </div>
+            
+            <div class="work-schedule">
+                <h3>Work Schedule</h3>
+                <p>Mon - Thu: 07:00 - 16:00</p>
+                <p>Friday: 07:00 - 11:00</p>
+                <p>Saturday: 07:00 - 13:00</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+document.getElementById('commentForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    // Using FormData to get form values
+    const formData = new FormData(event.target);
+
+    // Creating a comment object with a timestamp
+    const comment = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        comment: formData.get('comment'),
+        timestamp: new Date().toISOString() // Add date here
+    };
+
+    // Retrieve existing comments from localStorage or initialize an empty array
+    var comments = JSON.parse(localStorage.getItem('comments')) || [];
+
+    // Add the new comment to the array
+    comments.push(comment);
+
+    // Save the updated comments array back to localStorage
+    localStorage.setItem('comments', JSON.stringify(comments));
+
+    // Show a success message and reset the form
+    alert('Komentar Anda telah berhasil dikirim!');
+    document.getElementById('commentForm').reset();
+});
+
+
+    </script>
+    
+</body>
+</html>
+
+    
